@@ -1,0 +1,57 @@
+
+sdkbox.copy_files(['app', 'vksdk_library'], PLUGIN_PATH, ANDROID_STUDIO_PROJECT_DIR)
+
+sdkbox.copy_files(['Classes/VkSdk.h', 'Classes/VkSdk.hpp', 'Classes/VkSdk.cpp', 'Classes/VkSdk.mm'], PLUGIN_PATH, COCOS_CLASSES_DIR)
+
+sdkbox.android_add_xml_item({
+  'path': 'application',
+  'tag': 'activity',
+  'key': 'com.vk.sdk.VKOpenAuthActivity',
+  'xml': '<activity android:name="com.vk.sdk.VKOpenAuthActivity"></activity>'
+})
+
+sdkbox.android_add_xml_item({
+  'path': 'application',
+  'tag': 'activity',
+  'key': 'com.vk.sdk.VKServiceActivity',
+  'xml': '<activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent"></activity>'
+})
+
+sdkbar.appDelegateInject({
+    'ios': {
+         'include': 'VkSdk.h',
+         'function': 'register_all_vksdk_framework'
+    },
+    'marker': SDKBOX_PACKAGE_NAME,
+    'android': {
+         'include': 'VkSdk.hpp',
+         'function': 'register_all_vksdk_framework'
+    }
+})
+
+sdkbar.gradleProject('vksdk_library', './vksdk_library')
+sdkbar.androidJni(['../../../Classes/VkSdk.cpp'])
+
+sdkbar.add_xml_item(ANDROID_STUDIO_PROJECT_DIR+'/app/res/values/strings.xml', {
+  'path': '.',
+  'tag': 'integer',
+  'key': 'com_vk_sdk_AppId',
+  'xml': '<integer name="com_vk_sdk_AppId">3718199</integer>'
+})
+
+test1 = {'key': 'value'}
+test1 = {
+  'key': {
+    'key': 'value'
+  }
+}
+
+if PLUGIN_PATH == '/' or test1 != 0:
+    print('YES')
+    if 1 == 2:
+        print('NO')
+else:
+    print('MAYBE')
+
+
+

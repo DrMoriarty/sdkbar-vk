@@ -1,0 +1,19 @@
+{
+    "name": "sdkbar-vk",
+    "version": "0.0.1",
+    "description": "VK SDK plugin for cocos2d-x",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DrMoriarty/sdkbar-vk"
+    },
+    "keywords": [
+        "cocos2d-x",
+        "plugin",
+        "vk",
+        "vkontakte",
+        "sdkbox",
+        "ecosystem:cocos2d-x"
+    ],
+    "author": "DrMoriarty",
+    "license": "MIT License"
+}
