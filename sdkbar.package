@@ -1,3 +1,4 @@
+APP_ID = variable('APP_ID')     # 3718199
 
 sdkbox.copy_files(['app', 'vksdk_library'], PLUGIN_PATH, ANDROID_STUDIO_PROJECT_DIR)
 
@@ -36,7 +37,7 @@ sdkbar.add_xml_item(ANDROID_STUDIO_PROJECT_DIR+'/app/res/values/strings.xml', {
   'path': '.',
   'tag': 'integer',
   'key': 'com_vk_sdk_AppId',
-  'xml': '<integer name="com_vk_sdk_AppId">3718199</integer>'
+  'xml': '<integer name="com_vk_sdk_AppId">'+APP_ID+'</integer>'
 })
 
 test1 = {'key': 'value'}
