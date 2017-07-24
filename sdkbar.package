@@ -1,8 +1,15 @@
 APP_ID = variable('APP_ID')     # 3718199
 
 sdkbox.copy_files(['app', 'vksdk_library'], PLUGIN_PATH, ANDROID_STUDIO_PROJECT_DIR)
-
+sdkbox.copy_files(['ios/VKSdk.framework', 'ios/VKSdkResources.bundle'], PLUGIN_PATH, IOS_PROJECT_DIR)
 sdkbox.copy_files(['Classes/VkSdk.h', 'Classes/VkSdk.hpp', 'Classes/VkSdk.cpp', 'Classes/VkSdk.mm'], PLUGIN_PATH, COCOS_CLASSES_DIR)
+
+# Frameworks/VKSdk.framework
+# Frameworks/VKSdkResources.bundle
+# Classes/VkSdk.mm
+
+sdkbox.xcode_add_frameworks(['VKSdk.framework', 'VKSdkResources.bundle'])
+sdkbox.xcode_add_sources(['VkSdk.mm'])
 
 sdkbox.android_add_xml_item({
   'path': 'application',
@@ -39,20 +46,4 @@ sdkbar.add_xml_item(ANDROID_STUDIO_PROJECT_DIR+'/app/res/values/strings.xml', {
   'key': 'com_vk_sdk_AppId',
   'xml': '<integer name="com_vk_sdk_AppId">'+APP_ID+'</integer>'
 })
-
-test1 = {'key': 'value'}
-test1 = {
-  'key': {
-    'key': 'value'
-  }
-}
-
-if PLUGIN_PATH == '/' or test1 != 0:
-    print('YES')
-    if 1 == 2:
-        print('NO')
-else:
-    print('MAYBE')
-
-
 
