@@ -38,7 +38,7 @@ sdkbar.appDelegateInject({
 })
 
 sdkbar.gradleProject('vksdk_library', './vksdk_library')
-sdkbar.androidJni(['../../../Classes/VkSdk.cpp'])
+sdkbox.android_add_sources(['../../Classes/VkSdk.cpp'])
 
 sdkbar.add_xml_item(ANDROID_STUDIO_PROJECT_DIR+'/app/res/values/strings.xml', {
   'path': '.',
