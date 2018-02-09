@@ -56,7 +56,8 @@ public class VkPlugin {
             appActivity = Cocos2dxHelper.getActivity();
             Log.i(TAG, "VK initialize");
             String[] fingerprints = VKUtil.getCertificateFingerprint(appActivity, appActivity.getPackageName());
-            Log.i(TAG, "fingerprints: " + fingerprints[0]);
+			Log.i(TAG, "package: " + appActivity.getPackageName());
+			Log.i(TAG, "fingerprints: " + fingerprints[0]);
             VKSdk.initialize(appActivity.getApplicationContext());
             Cocos2dxHelper.addOnActivityResultListener(new OnActivityResultListener() {
                     @Override
