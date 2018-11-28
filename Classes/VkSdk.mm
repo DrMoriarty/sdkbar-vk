@@ -166,27 +166,33 @@ static jsval object_to_jsval(JSContext *cx, id object)
 -(void) start
 {
     [vkRequest executeWithResultBlock:^(VKResponse *response) {
-        NSLog(@"VK Result: %@", response.json);
-        JSAutoCompartment ac(context, contextObject.ref());
-        JS::RootedValue retVal(context);
-        JS::AutoValueVector valArr(context);
-        valArr.append(JSVAL_NULL);
-        valArr.append(object_to_jsval(context, response.json));
-        JS::HandleValueArray funcArgs = JS::HandleValueArray::fromMarkedLocation(2, valArr.begin());
-        JS::RootedObject thisObj(context, thisObject.ref().get().toObjectOrNull());
-        JS_CallFunctionValue(context, thisObj, callback.ref(), funcArgs, &retVal);
-        [calls removeObject:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"VK Result: %@", response.json);
+            JSAutoRequest rq(context);
+            JSAutoCompartment ac(context, contextObject.ref());
+            JS::RootedValue retVal(context);
+            JS::AutoValueVector valArr(context);
+            valArr.append(JSVAL_NULL);
+            valArr.append(object_to_jsval(context, response.json));
+            JS::HandleValueArray funcArgs = JS::HandleValueArray::fromMarkedLocation(2, valArr.begin());
+            JS::RootedObject thisObj(context, thisObject.ref().get().toObjectOrNull());
+            JS_CallFunctionValue(context, thisObj, callback.ref(), funcArgs, &retVal);
+            [calls removeObject:self];
+        });
     } errorBlock:^(NSError *error) {
-        NSLog(@"VK Error: %@", error);
-        JSAutoCompartment ac(context, contextObject.ref());
-        JS::RootedValue retVal(context);
-        JS::AutoValueVector valArr(context);
-        valArr.append(std_string_to_jsval(context, [error.description UTF8String]));
-        valArr.append( JSVAL_NULL);
-        JS::HandleValueArray funcArgs = JS::HandleValueArray::fromMarkedLocation(2, valArr.begin());
-        JS::RootedObject thisObj(context, thisObject.ref().get().toObjectOrNull());
-        JS_CallFunctionValue(context, thisObj, callback.ref(), funcArgs, &retVal);
-        [calls removeObject:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"VK Error: %@", error);
+            JSAutoRequest rq(context);
+            JSAutoCompartment ac(context, contextObject.ref());
+            JS::RootedValue retVal(context);
+            JS::AutoValueVector valArr(context);
+            valArr.append(std_string_to_jsval(context, [error.description UTF8String]));
+            valArr.append( JSVAL_NULL);
+            JS::HandleValueArray funcArgs = JS::HandleValueArray::fromMarkedLocation(2, valArr.begin());
+            JS::RootedObject thisObj(context, thisObject.ref().get().toObjectOrNull());
+            JS_CallFunctionValue(context, thisObj, callback.ref(), funcArgs, &retVal);
+            [calls removeObject:self];
+        });
     }];
 }
 

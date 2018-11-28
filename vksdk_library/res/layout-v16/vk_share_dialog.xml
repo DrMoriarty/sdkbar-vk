@@ -162,10 +162,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/vk_share_send_button_background"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/vk_send"
             android:textColor="@color/vk_white"
-            android:textSize="@dimen/vk_share_send_text_size"
-            android:textStyle="bold"/>
+            android:textSize="@dimen/vk_share_send_text_size"/>
     </LinearLayout>
 
     <View
